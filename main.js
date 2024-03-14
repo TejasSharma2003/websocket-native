@@ -61,6 +61,12 @@ async function fetchAndRender() {
     renderPosts()
 }
 
+function getAllPosts(socket) {
+    socket.addEventListener("message", (event) => {
+        console.log("We shall we all the posts");
+    })
+}
+
 formData.addEventListener("submit", async (event) => {
     event.preventDefault();
     await createPost();
@@ -68,6 +74,8 @@ formData.addEventListener("submit", async (event) => {
 
 window.addEventListener("DOMContentLoaded", async () => {
     await fetchAndRender();
+    const socket = new WebSocket("ws://localhost:3000");
+    getAllPosts(socket);
 })
 
 refreshBtn.addEventListener("click", async () => {
